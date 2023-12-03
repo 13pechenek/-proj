@@ -43,7 +43,7 @@ public:
     std::uniform_int_distribution<int> dis(1, 5);
     int rand = dis(gen);
 
-    std::vector<int> vec {rand + 1, rand + 2};
+    std::vector<int> vec {rand + 1, rand + 2}; \\Зачем вектор и рандом??? Ты понимаешь что работать кэн мув не будет с вектором?
 
     Bullets(T x, T y)
     {
@@ -94,12 +94,12 @@ public:
         this->distance_to_Player = sqrt( pow((player.x - x), 2) + pow((player.y - y), 2) )
         this->cos = (player.x - x)/distance_to_Player; 
         this->sin = (player.y - y)/distance_to_Player;
-        bool able_to_move = true;
+        bool able_to_move = true; \\Зачем если по умолчанию можно задать, без генератора?
         bool see_Player = true;
 
     }
 
-    Enemies &move(Player player) override
+    Enemies &move(Player player) override \\можно вместо переобъявления написать move_decide, который считает след положение, тогда будет проще сам код.
     {
         if (Obstacle)
         {
@@ -108,7 +108,7 @@ public:
             {
                 able_to_move = true;
                 speed_enemy = {3*cos, 3*sin};
-                this->x += v_enemy[0]; this->y += speed_enemy[1];
+                this->x += speed_enemy[0]; this->y += speed_enemy[1];
             } 
         }
     }
@@ -120,7 +120,7 @@ private:
     bool able_to_move;
     int count_of_bullets = 20;
     bool see_Player = true;
-    std::array<float, 2> speed_enemy {};
+    std::array<float, 2> speed_enemy {}; \\опять усложняешь. То вектор, то эррэй. Понты? Кста не забудь тестить это всё на работоспособность.
 
 }
 
